@@ -6,7 +6,10 @@
         "layouts/*"
       ],
       "@/styles/*": [
-        "styles/*"
+        "styles/*",
+      ],
+      "@/store/*": [
+        "store/*",
       ],
     },
     "target": "esnext",
