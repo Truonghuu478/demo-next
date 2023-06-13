@@ -1,16 +1,22 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RootState } from 'src/store/store';
+import { fetchRoomsAction,fetchStudentsAction } from 'src/store/actions';
 
 export interface CounterState {
-    value: number
+    value: number,
+    rooms: Array<any>,
+    students :Array<any>
 }
 
 const initialState: CounterState = {
-    value: 0
+    value: 0,
+    rooms:[],
+    students:[]
 }
 
+
 export const counterSlice = createSlice({
-    name:'counter',
+    name: 'counter',
     initialState,
     reducers:{
         increment: (state) => {
@@ -23,6 +29,15 @@ export const counterSlice = createSlice({
             state.value += action.payload
 
         }
+    },
+    extraReducers:(builder)=>{
+        builder.addCase(fetchRoomsAction.fulfilled, (state: CounterState, {payload}: PayloadAction<any>)=>{
+            state.rooms = [...payload.content]
+        })
+            .addCase(fetchStudentsAction.fulfilled, (state: CounterState, { payload }: PayloadAction<any>) => {
+            state.students = [...payload.data]
+
+        })
     }
 })
 
